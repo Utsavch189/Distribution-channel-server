@@ -38,9 +38,9 @@ def Login(request):
     if email and password and len(body)==2:
         if BusinessUsers.objects.filter(email=email,otp_verified=True).exists() and check_password(password,BusinessUsers.objects.filter(email=email).values('password')[0]['password']):
             ID=BusinessUsers.objects.filter(email=email).values('uid')[0]['uid']
-            tokens=JWT_Builder({"userid":ID}).get_token()
-            token_pair={"access_token":tokens['access_token'],"refresh_token":tokens['refresh_token']}
             user=BusinessUsers.objects.get(uid=ID)
+            tokens=JWT_Builder({"userid":ID,"role":Role.objects.get(user=user).role}).get_token()
+            token_pair={"access_token":tokens['access_token'],"refresh_token":tokens['refresh_token']}            
             saveRefreshToken(tokens['refresh_token'],user)
             return Response(token_pair,status=status.HTTP_200_OK)
     
