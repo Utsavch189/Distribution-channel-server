@@ -23,8 +23,7 @@ class Role(models.Model):
         return self.role
 
 class OTP(models.Model):
-    user=models.OneToOneField(BusinessUsers,on_delete=models.CASCADE,null=True)
-    otp_id = models.AutoField(primary_key=True,default=0)
+    user=models.OneToOneField(BusinessUsers,on_delete=models.CASCADE,primary_key=True)
     otp=models.CharField(max_length=4,null=True,blank=True)
     created_at=models.DateTimeField(timezone.now())
 
@@ -32,8 +31,7 @@ class OTP(models.Model):
         return self.otp
 
 class RefreshToken(models.Model):
-    user=models.OneToOneField(BusinessUsers,on_delete=models.CASCADE,null=True)
-    token_id=models.AutoField(primary_key=True,default=0)
+    user=models.OneToOneField(BusinessUsers,on_delete=models.CASCADE,primary_key=True)
     refresh_token=models.CharField(max_length=555,null=True,blank=True)
 
     def __str__(self):
