@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password,check_password
 from .authorization import Verify
-from .jwtToken import JWT_Builder
+from Jwt.jwtToken import JWT_Builder
 import json
 from django.contrib.auth.hashers import check_password,make_password
 from .models import BusinessUsers,RefreshToken,Role,OTP
@@ -10,23 +10,23 @@ from rest_framework import status
 import uuid
 from EmailServer.emails import OtpDuringRegister
 from django.utils import timezone
-from threading import Thread
+
 
 def saveRefreshToken(token,user):
     try:
-        if(RefreshToken.objects.filter(user=user).exists()):
-            RefreshToken.objects.filter(user=user).update(refresh_token=token)
-        else:
-            x=RefreshToken(user=user,refresh_token=token)
-            x.save()
+        x=RefreshToken(user=user,refresh_token=token)
+        x.save()
     except:
         pass
 
 def validate_Email_and_Phone(email,phone):
-    if BusinessUsers.objects.filter(email=email).exists() or BusinessUsers.objects.filter(phone=phone).exists():
-        return False
-    else:
-        return True
+    try:
+        if BusinessUsers.objects.filter(email=email).exists() or BusinessUsers.objects.filter(phone=phone).exists():
+            return False
+        else:
+            return True
+    except:
+        pass
 
 
 @api_view(['POST'])
@@ -57,15 +57,17 @@ def refresh_token(request,userid):
         if(RefreshToken.objects.filter(refresh_token=Verify(request).is_Tokenvalid()['token']).exists()):
             try:              
                 if BusinessUsers.objects.filter(uid=userid).exists():
-                    access_token=JWT_Builder({"userid":userid}).get_token()['access_token']
-                    refresh_token=JWT_Builder({"userid":userid}).get_token()['refresh_token']
-                    token={"access_token":access_token,"refresh_token":refresh_token}
                     user=BusinessUsers.objects.get(uid=userid)
+                    access_token=JWT_Builder({"userid":userid,"role":Role.objects.get(user=user).role}).get_token()['access_token']
+                    refresh_token=JWT_Builder({"userid":userid,"role":Role.objects.get(user=user).role}).get_token()['refresh_token']
+                    token={"access_token":access_token,"refresh_token":refresh_token}
                     saveRefreshToken(refresh_token,user)
                     return Response(token,status=status.HTTP_200_OK)
+                else:
+                    info={"info":"invalid userid"}
+                    return Response(info,status=status.HTTP_400_BAD_REQUEST)
             except:
-                info={"info":"invalid userid"}
-                return Response(info,status=status.HTTP_400_BAD_REQUEST)
+                pass
         else:
             info={"info":"invalid token"}
             return Response(info,status=status.HTTP_400_BAD_REQUEST)
@@ -89,7 +91,7 @@ def register(request):
     phone=body['phone']
     role=body['role']
     name=body['name']
-    if len(body)==5 and (role in ['Manufacturer','WholeSaller','Retailer']):     
+    if len(body)==5 and (role in ['Manufacturer','WholeSaler','Retailer']):     
         if not validate_Email_and_Phone(email,phone):
             return Response({"info":"Already exists"},status=status.HTTP_409_CONFLICT)
         else:
@@ -102,7 +104,7 @@ def register(request):
             except:
                 return Response({"info":"Something went wrong!"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    return Response({"info":"Something went wrong!"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({"info":"Bad request!"},status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
 def OtpVerify(request,email):
