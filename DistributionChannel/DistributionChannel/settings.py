@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'AuthProvider'
+    'django_extensions',
+    'micro_auth_service',
+    'micro_brands_service',
+    'micro_category_service',
+    'micro_product_service',
 ]
 
 MIDDLEWARE = [

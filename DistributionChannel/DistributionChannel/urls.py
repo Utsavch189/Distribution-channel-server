@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from django.contrib.auth.hashers import make_password
-from django.utils import timezone
 
-#print(make_password('admin'))
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/',include('AuthProvider.urls'))
+    path('auth/',include('micro_auth_service.urls')),
+    path('brand/',include('micro_brands_service.urls')),
+    path('category/',include('micro_category_service.urls')),
+    path('product/',include('micro_product_service.urls'))
 ]

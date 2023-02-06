@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from AuthProvider.models import OTP
+from micro_auth_service.models import OTP
 from random import randint
 from django.utils import timezone
 from threading import Thread
