@@ -19,7 +19,8 @@ class Verify:
                     return {
                         "info":"Ok!",
                         "status":200,
-                        "token":header.split(' ', 1)[1]
+                        "token":header.split(' ', 1)[1],
+                        "userid":jwtToken['userid']
                     }
                 else:
                     return {

@@ -20,7 +20,6 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/',include('micro_auth_service.urls')),
-    path('brand/',include('micro_brands_service.urls')),
-    path('category/',include('micro_category_service.urls')),
-    path('product/',include('micro_product_service.urls'))
+    path('brand/',include('micro_brandCategoryProduct_service.urls.brand_urls')),
+    path('category/',include('micro_brandCategoryProduct_service.urls.category_urls'))
 ]
