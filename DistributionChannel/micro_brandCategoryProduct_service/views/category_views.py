@@ -4,7 +4,7 @@ from rest_framework import status
 import uuid
 from django.utils import timezone
 from micro_auth_service.models import BusinessUsers
-from micro_auth_service.authorization import Verify
+from Authorization.authorization import Verify
 from micro_brandCategoryProduct_service.models import ProductCategory,Brand
 import json
 from VerifyAccess.access import verifyAccess
