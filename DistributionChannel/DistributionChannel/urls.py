@@ -19,7 +19,8 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/',include('micro_auth_service.urls')),
-    path('brand/',include('micro_brandCategoryProduct_service.urls.brand_urls')),
-    path('category/',include('micro_brandCategoryProduct_service.urls.category_urls'))
+    path('auth/v1/',include('micro_auth_service.urls')),
+    path('manage/brand/v1/',include('micro_brandCategoryProduct_service.urls.brand_urls')),
+    path('manage/category/v1/',include('micro_brandCategoryProduct_service.urls.category_urls')),
+    path('manage/product/v1/',include('micro_brandCategoryProduct_service.urls.product_urls'))
 ]

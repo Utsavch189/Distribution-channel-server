@@ -34,6 +34,5 @@ class Product(models.Model):
     expiry_date=models.CharField(max_length=35,null=True,blank=True)
 
     def __str__(self):
-        return str(f"product:{self.name} under category:{self.category}")
-
+        return str(f"product:{self.name} under {self.category}")
 
