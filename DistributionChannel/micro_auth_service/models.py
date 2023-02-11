@@ -25,7 +25,7 @@ class Role(models.Model):
 class OTP(models.Model):
     user=models.OneToOneField(BusinessUsers,on_delete=models.CASCADE,primary_key=True,default="")
     otp=models.CharField(max_length=4,null=True,blank=True)
-    created_at=models.DateTimeField(timezone.now())
+    expiry=models.CharField(max_length=50,null=True,blank=True)
 
     def __str__(self):
         return self.otp

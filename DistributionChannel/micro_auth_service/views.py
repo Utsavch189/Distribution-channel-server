@@ -10,6 +10,7 @@ from rest_framework import status
 import uuid
 from EmailServer.emails import OtpDuringRegister
 from django.utils import timezone
+from datetime import datetime
 
 
 def saveRefreshToken(token,user):
@@ -116,10 +117,16 @@ def OtpVerify(request,email):
         user=BusinessUsers.objects.get(uid=ID)
         if(OTP.objects.filter(user=user).exists() and int(OTP.objects.filter(user=user).values('otp')[0]['otp'])==int(otp)):
             try:
-                OTP.objects.filter(user=user).delete()
-                user.otp_verified=True
-                user.save()
-                return Response({"info":"created!!!"},status=status.HTTP_201_CREATED)
+                currentTimestamp=datetime.timestamp(datetime.now())
+                if(float(OTP.objects.filter(user=user).values('expiry')[0]['expiry'])>=currentTimestamp):
+                    OTP.objects.filter(user=user).delete()
+                    user.otp_verified=True
+                    user.save()
+                    return Response({"info":"created!!!"},status=status.HTTP_201_CREATED)
+                else:
+                    OTP.objects.filter(user=user).delete()
+                    user.delete()
+                    return Response({"info":"expired otp, register again!!!"},status=status.HTTP_403_FORBIDDEN)
             except:
                 return Response({"info":"Something went wrong!"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response({"wrong credentials!"},status=status.HTTP_404_NOT_FOUND)

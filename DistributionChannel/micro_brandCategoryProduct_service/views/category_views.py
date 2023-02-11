@@ -83,7 +83,6 @@ def create_category(request,userid,brandid):
                 if(not isCategoryExists(category_name=category_name)):
                     user=BusinessUsers.objects.get(uid=userid)
                     brand=Brand.objects.filter(user=user).get(brand_id=brandid)
-                    print(brandid,brand)
                     ID=uuid.uuid4()
                     b=ProductCategory(brand=brand,category_id=ID,category_name=category_name,desc=category_desc,created_at=timezone.now())
                     b.save()
