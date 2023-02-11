@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/auth/',include('micro_auth_service.urls')),
     path('api/v1/manage/brand/',include('micro_brandCategoryProduct_service.urls.brand_urls')),
     path('api/v1/manage/category/',include('micro_brandCategoryProduct_service.urls.category_urls')),
-    path('api/v1/manage/product/',include('micro_brandCategoryProduct_service.urls.product_urls'))
+    path('api/v1/manage/product/',include('micro_brandCategoryProduct_service.urls.product_urls')),
+    path('api/v1/production/',include('micro_production_service.urls'))
 ]

@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     'micro_auth_service',
-    'micro_brandCategoryProduct_service'
+    'micro_brandCategoryProduct_service',
+    'micro_production_service'
 ]
 
 MIDDLEWARE = [

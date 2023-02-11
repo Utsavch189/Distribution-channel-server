@@ -2,7 +2,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 import uuid
-from django.utils import timezone
 from micro_auth_service.models import BusinessUsers
 from Authorization.authorization import Verify
 from micro_brandCategoryProduct_service.models import ProductCategory,Product
@@ -132,7 +131,7 @@ def update_product(request,userid,productid):
                 elif(body.__contains__('product_expiry_date')):
                     product.expiry_date=body['product_expiry_date']
                 product.save()     
-                return Response({"info":"updated!!!"},status=status.HTTP_201_CREATED)
+                return Response({"info":"updated!!!"},status=status.HTTP_200_OK)
         except:
             pass
         else:

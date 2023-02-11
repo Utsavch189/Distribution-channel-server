@@ -124,7 +124,7 @@ def  update_category(request,userid,categoryid):
                     category.category_name=body['category_name'].upper()
                     category.desc=body['category_desc']
                 category.save()     
-                return Response({"info":"updated!!!"},status=status.HTTP_201_CREATED)
+                return Response({"info":"updated!!!"},status=status.HTTP_200_OK)
         except:
             pass
         else:
