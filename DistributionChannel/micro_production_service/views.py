@@ -67,7 +67,7 @@ def get_a_single_production(product):
         pass
 
 @api_view(['GET'])
-def get_production_of_a_product(request,userid,productid):
+def get_total_production_of_a_product(request,userid,productid):
     if(Verify(request).is_Tokenvalid()['status']==401):
         return Response({"info":"UnAuthorized"},status=status.HTTP_401_UNAUTHORIZED)
     
