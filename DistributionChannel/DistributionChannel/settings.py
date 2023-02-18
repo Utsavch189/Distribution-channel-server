@@ -10,6 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+"""
+.env::
+DJANGO_SECRET_KEY=yc1&3wt^@yylhnktgff!o1hy)@g7@a%5i=s6jrrkocy79xef(
+
+EMAIL_HOST=mail.bedigit.in
+EMAIL_PORT=587
+EMAIL_HOST_USER=utsav.cha@bedigit.in
+EMAIL_HOST_PASSWORD=utsav@2001
+
+jwt_secret=utsavsupratim
+jwt_algos=HS512
+
+Manufacturer=Manufacturer
+WholeSaler=WholeSaler
+Retailer=Retailer
+"""
+
 from pathlib import Path
 from decouple import config
 
