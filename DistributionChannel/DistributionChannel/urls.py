@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/v1/manage/brand/',include('micro_brandCategoryProduct_service.urls.brand_urls')),
     path('api/v1/manage/category/',include('micro_brandCategoryProduct_service.urls.category_urls')),
     path('api/v1/manage/product/',include('micro_brandCategoryProduct_service.urls.product_urls')),
-    path('api/v1/production/',include('micro_production_service.urls'))
+    path('api/v1/production/',include('micro_production_service.urls')),
+    path('api/v1/business/',include('micro_business_service.urls'))
 ]

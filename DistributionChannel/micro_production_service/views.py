@@ -137,3 +137,26 @@ def get_total_production_of_a_user(request,userid):
             return Response({"info":"access denied!"},status=status.HTTP_406_NOT_ACCEPTABLE)
              
     return Response({"info":"Something wrong!"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['DELETE'])
+def deleteProduction(request,userid,productionid):
+    if(Verify(request).is_Tokenvalid()['status']==401):
+        return Response({"info":"UnAuthorized"},status=status.HTTP_401_UNAUTHORIZED)
+    
+    elif (Verify(request).is_Tokenvalid()['status']==403):
+        return Response({"info":"invalid token"},status=status.HTTP_403_FORBIDDEN)
+    
+    elif(Verify(request).is_Tokenvalid()['status']==200):
+        try:
+            user=BusinessUsers.objects.get(uid=userid)
+            if(verifyAccess(request,ACCESSED_BY) and Verify(request).is_Tokenvalid()['userid']==userid):
+                p=Production.objects.get(production_id=productionid)
+                if(p.product.category.brand.user==user):
+                    p.delete()
+                return Response({"info":"deleted!!!"},status=status.HTTP_200_OK)
+        except:
+            pass
+        else:
+            return Response({"info":"access denied!"},status=status.HTTP_406_NOT_ACCEPTABLE)
+             
+    return Response({"info":"Something wrong!"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)

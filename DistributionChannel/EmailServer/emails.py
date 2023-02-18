@@ -16,7 +16,7 @@ def OtpDuringRegister(email,name,user):
         otp=randint(1111,9999)
         subject='Welcome To Our Service'
         body=f'{name}, Your Business account is almost ready. Please verify your account with OTP : {otp} within 3 minutes!'
-        mail_sender = 'utsavpokemon9000chatterjee@gmail.com'
+        mail_sender = 'utsav.cha@bedigit.in'
         try:
             t1=Thread(target=saveotp,args=[otp,user,])
             t2=Thread(target=send_mail,args=[subject,body,mail_sender,[email],False,])

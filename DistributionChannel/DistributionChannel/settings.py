@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'micro_auth_service',
     'micro_brandCategoryProduct_service',
-    'micro_production_service'
+    'micro_production_service',
+    'micro_business_service'
 ]
 
 MIDDLEWARE = [
